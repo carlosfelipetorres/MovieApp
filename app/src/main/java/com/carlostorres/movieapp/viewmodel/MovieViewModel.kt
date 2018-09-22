@@ -4,9 +4,6 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.carlostorres.movieapp.BR
 import com.carlostorres.movieapp.model.Movie
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MovieViewModel(private val mMovie: Movie) : BaseObservable() {
 
@@ -34,15 +31,43 @@ class MovieViewModel(private val mMovie: Movie) : BaseObservable() {
             notifyPropertyChanged(BR.overview)
         }
 
-    val formattedDate: String
+    var date: String?
         @Bindable
-        get() {
-            val sdf = SimpleDateFormat("YYYY-mm-dd", Locale.getDefault())
-            return sdf.format(mMovie.release_date)
+        get() = mMovie.release_date
+        set(date) {
+            mMovie.release_date = date
+            notifyPropertyChanged(BR.date)
         }
 
-    fun setDate(date: Date) {
-        mMovie.release_date = date
-        notifyPropertyChanged(BR.formattedDate)
-    }
+    var tagline: String?
+        @Bindable
+        get() = mMovie.tagline
+        set(tagline) {
+            mMovie.tagline = tagline
+            notifyPropertyChanged(BR.tagline)
+        }
+
+    var status: String?
+        @Bindable
+        get() = mMovie.status
+        set(status) {
+            mMovie.status = status
+            notifyPropertyChanged(BR.status)
+        }
+
+    var voteAverage: String?
+        @Bindable
+        get() = mMovie.vote_average
+        set(voteAverage) {
+            mMovie.vote_average = voteAverage
+            notifyPropertyChanged(BR.voteAverage)
+        }
+
+    var poster: String?
+        @Bindable
+        get() = mMovie.poster_path
+        set(poster) {
+            mMovie.poster_path = poster
+            notifyPropertyChanged(BR.poster)
+        }
 }

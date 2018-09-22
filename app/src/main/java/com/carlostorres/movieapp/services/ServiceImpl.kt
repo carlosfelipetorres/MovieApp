@@ -42,9 +42,9 @@ class ServicesImpl: MovieServices {
 
     }
 
-    override fun getMovie(observer: Observer<Movie>, idMovie: Int) {
+    override fun getMovie(observer: Observer<Movie>, idMovie: String) {
         setupRetrofit()
-        val call = api?.getMovie(API_KEY, idMovie)
+        val call = api?.getMovie(idMovie, API_KEY)
 
         call?.enqueue(object: Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {

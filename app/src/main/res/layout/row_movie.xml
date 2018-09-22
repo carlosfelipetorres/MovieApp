@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable name="mvm"
             type="com.carlostorres.movieapp.viewmodel.MovieViewModel"/>
@@ -19,7 +19,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="12345"
+            bind:text="12345"
             android:layout_marginBottom="2dp"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -28,7 +28,7 @@
             android:id="@+id/idMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Star Wars"
+            bind:text="Star Wars"
             android:layout_marginBottom="5dp"
             android:textSize="12sp"
             android:textStyle="italic"
@@ -41,16 +41,28 @@
             android:layout_marginBottom="5dp"
             android:textSize="10sp"
             android:textStyle="italic"
-            android:text="@{mvm.getFormattedDate()}"/>
+            android:text="@{mvm.getDate()}"/>
 
-        <TextView
-            android:id="@+id/overview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="overview"
-            android:layout_marginBottom="5dp"
-            android:textSize="14sp"
-            android:text="@{mvm.getOverview()}"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                bind:text="overview"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp"
+                android:text="@{mvm.getOverview()}"/>
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                bind:imageUrl="@{mvm.getPoster()}"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

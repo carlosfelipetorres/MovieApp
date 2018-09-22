@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="mvm"
+            type="com.carlostorres.movieapp.viewmodel.MovieViewModel"/>
+    </data>
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="12345"
+            android:layout_marginBottom="2dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@{mvm.getTitle()}"/>
+        <TextView
+            android:id="@+id/idMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Star Wars"
+            android:layout_marginBottom="5dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="@android:color/darker_gray"
+            android:text="@{mvm.getIdMovie()}"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:text="@{mvm.getFormattedDate()}"/>
+
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="overview"
+            android:layout_marginBottom="5dp"
+            android:textSize="14sp"
+            android:text="@{mvm.getOverview()}"/>
+
+    </LinearLayout>
+</layout>

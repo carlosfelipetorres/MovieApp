@@ -1,13 +1,13 @@
 package com.carlostorres.movieapp.view
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.bumptech.glide.Glide
 import com.carlostorres.movieapp.R
 import com.carlostorres.movieapp.databinding.ActivityDetailBinding
-import com.carlostorres.movieapp.databinding.ActivityMainBinding
 import com.carlostorres.movieapp.model.Movie
 import com.carlostorres.movieapp.services.ServicesImpl
 import com.carlostorres.movieapp.viewmodel.MovieViewModel
@@ -17,11 +17,23 @@ import io.realm.kotlin.where
 
 class DetailActivity: AppCompatActivity() {
 
+    companion object {
+        private val ID_MOVIE_EXTRA = "idMovie"
+        private val ID_MOVIE_REALM = "id"
+        private val TAGLINE_REALM = "tagline"
+
+        fun newIntent(context: Context, idMovie: String): Intent {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(ID_MOVIE_EXTRA, idMovie)
+            return intent
+        }
+    }
+
     private lateinit var realm: Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val idMovie = intent.getStringExtra("idMovie")
+        val idMovie = intent.getStringExtra(ID_MOVIE_EXTRA)
         val binding = DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail)
         binding.mvm = MovieViewModel(Movie())
 
@@ -29,9 +41,7 @@ class DetailActivity: AppCompatActivity() {
         setDetailData(idMovie, binding)
     }
 
-    private fun setDetailData(idMovie: String,
-        binding: ActivityDetailBinding) {
-
+    private fun setDetailData(idMovie: String, binding: ActivityDetailBinding) {
         val movieRealm = getMovieRealm(idMovie)
         if (movieRealm == null) {
             ServicesImpl().getMovie(object: DisposableObserver<Movie>() {
@@ -51,14 +61,19 @@ class DetailActivity: AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+
     private fun getMovieRealm(idMovie: String): Movie? = realm.where<Movie>()
-        .equalTo("id", idMovie)
+        .equalTo(ID_MOVIE_REALM, idMovie)
         .and()
-        .isNotNull("tagline")
+        .isNotNull(TAGLINE_REALM)
         .findFirst()
 
     private fun updateDetailInfo(idMovie: String, movie: Movie) = realm.executeTransaction { _ ->
-        val movieUpdate = realm.where<Movie>().equalTo("id", idMovie).findFirst()
+        val movieUpdate = realm.where<Movie>().equalTo(ID_MOVIE_REALM, idMovie).findFirst()
         movieUpdate?.tagline = movie.tagline
         movieUpdate?.vote_average = movie.vote_average
         movieUpdate?.status = movie.status

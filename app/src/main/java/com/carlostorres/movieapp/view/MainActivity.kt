@@ -1,6 +1,5 @@
 package com.carlostorres.movieapp.view
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -57,8 +56,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.IMovieClickListener {
     }
 
     override fun movieClicked(idMovie: String) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("idMovie", idMovie)
+        val intent = DetailActivity.newIntent(this, idMovie)
         startActivity(intent)
     }
 
@@ -94,10 +92,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.IMovieClickListener {
                 }
             }
         }, Realm.Transaction.OnSuccess {
-            val movieR = realm.where<Movie>().findAll()
-            movieR.forEach {
-                Log.e("-----", it.original_title)
-            }
+            Log.e("Realm.Transaction:", "OnSuccess")
         })
     }
 }

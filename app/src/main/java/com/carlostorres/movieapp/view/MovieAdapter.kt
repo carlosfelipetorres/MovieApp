@@ -23,9 +23,9 @@ class MovieAdapter(private val mMovies: List<Movie>, val iMovieClickListener: IM
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         val binding = holder.binding
         binding.mvm = MovieViewModel(mMovies[position])
-        binding.mainLayout.setOnClickListener(View.OnClickListener {
+        binding.mainLayout.setOnClickListener {
             mMovies[position].id?.let { iMovieClickListener.movieClicked(it) }
-        })
+        }
     }
 
     override fun getItemCount(): Int {

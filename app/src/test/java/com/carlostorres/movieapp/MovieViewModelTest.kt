@@ -60,7 +60,7 @@ class MovieViewModelTest {
 
     @Test
     fun testTest() {
-        assertEquals(4, 3 + 2)
+        assertEquals(4, 2 + 2)
     }
 
 }

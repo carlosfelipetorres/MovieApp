@@ -58,4 +58,9 @@ class MovieViewModelTest {
         assertEquals("6.7", viewModel?.voteAverage)
     }
 
+    @Test
+    fun testTest() {
+        assertEquals(4, 3 + 2)
+    }
+
 }
